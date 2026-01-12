@@ -65,11 +65,11 @@ export function Testimonial() {
   const current = testimonials[activeIndex]
 
   return (
-    <div className="flex items-center justify-center py-6 bg-background overflow-hidden">
+    <div className="flex items-center justify-center py-6 bg-background overflow-hidden transition-colors duration-300">
       <div ref={containerRef} className="relative w-full max-w-4xl px-4" onMouseMove={handleMouseMove}>
         {/* Oversized index number - positioned to bleed off left edge */}
         <motion.div
-          className="absolute -left-4 top-1/2 -translate-y-1/2 text-[8rem] font-bold text-foreground/[0.03] select-none pointer-events-none leading-none tracking-tighter"
+          className="absolute -left-4 top-1/2 -translate-y-1/2 text-[8rem] font-bold text-foreground/[0.03] select-none pointer-events-none leading-none tracking-tighter transition-colors duration-300"
           style={{ x: numberX, y: numberY }}
         >
           <AnimatePresence mode="wait">
@@ -89,9 +89,9 @@ export function Testimonial() {
         {/* Main content - asymmetric layout */}
         <div className="relative flex">
           {/* Left column - vertical text */}
-          <div className="flex flex-col items-center justify-center pr-6 md:pr-8 border-r border-border">
+          <div className="flex flex-col items-center justify-center pr-6 md:pr-8 border-r border-border transition-colors duration-300">
             <motion.span
-              className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase"
+              className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase transition-colors duration-300"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -101,9 +101,9 @@ export function Testimonial() {
             </motion.span>
 
             {/* Vertical progress line */}
-            <div className="relative h-16 w-px bg-border mt-4">
+            <div className="relative h-16 w-px bg-border mt-4 transition-colors duration-300">
               <motion.div
-                className="absolute top-0 left-0 w-full bg-foreground origin-top"
+                className="absolute top-0 left-0 w-full bg-foreground origin-top transition-colors duration-300"
                 animate={{
                   height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
                 }}
@@ -124,8 +124,8 @@ export function Testimonial() {
                 transition={{ duration: 0.4 }}
                 className="mb-3"
               >
-                <span className="inline-flex items-center gap-2 text-[10px] font-mono text-muted-foreground border border-border rounded-full px-2 py-0.5">
-                  <span className="w-1 h-1 rounded-full bg-accent" />
+                <span className="inline-flex items-center gap-2 text-[10px] font-mono text-muted-foreground border border-border rounded-full px-2 py-0.5 transition-colors duration-300">
+                  <span className="w-1 h-1 rounded-full bg-accent transition-colors duration-300" />
                   {current.company}
                 </span>
               </motion.div>
@@ -136,7 +136,7 @@ export function Testimonial() {
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
-                  className="text-lg md:text-xl font-light text-foreground leading-[1.15] tracking-tight"
+                  className="text-lg md:text-xl font-light text-foreground leading-[1.15] tracking-tight transition-colors duration-300"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -184,15 +184,15 @@ export function Testimonial() {
                 >
                   {/* Animated line before name */}
                   <motion.div
-                    className="w-6 h-px bg-foreground"
+                    className="w-6 h-px bg-foreground transition-colors duration-300"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                     style={{ originX: 0 }}
                   />
                   <div>
-                    <p className="text-xs font-medium text-foreground">{current.author}</p>
-                    <p className="text-[10px] text-muted-foreground">{current.role}</p>
+                    <p className="text-xs font-medium text-foreground transition-colors duration-300">{current.author}</p>
+                    <p className="text-[10px] text-muted-foreground transition-colors duration-300">{current.role}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -201,7 +201,7 @@ export function Testimonial() {
               <div className="flex items-center gap-2">
                 <motion.button
                   onClick={goPrev}
-                  className="group relative w-8 h-8 rounded-full border border-border flex items-center justify-center overflow-hidden hover:bg-foreground transition-colors"
+                  className="group relative w-8 h-8 rounded-full border border-border flex items-center justify-center overflow-hidden hover:bg-foreground transition-colors duration-300"
                   whileTap={{ scale: 0.95 }}
                   whileHover={{ scale: 1.05 }}
                 >
@@ -210,7 +210,7 @@ export function Testimonial() {
                     height="14"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-foreground group-hover:text-background transition-colors"
+                    className="relative z-10 text-foreground group-hover:text-background transition-colors duration-300"
                   >
                     <path
                       d="M10 12L6 8L10 4"
@@ -224,7 +224,7 @@ export function Testimonial() {
 
                 <motion.button
                   onClick={goNext}
-                  className="group relative w-8 h-8 rounded-full border border-border flex items-center justify-center overflow-hidden hover:bg-foreground transition-colors"
+                  className="group relative w-8 h-8 rounded-full border border-border flex items-center justify-center overflow-hidden hover:bg-foreground transition-colors duration-300"
                   whileTap={{ scale: 0.95 }}
                   whileHover={{ scale: 1.05 }}
                 >
@@ -233,7 +233,7 @@ export function Testimonial() {
                     height="14"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-foreground group-hover:text-background transition-colors"
+                    className="relative z-10 text-foreground group-hover:text-background transition-colors duration-300"
                   >
                     <path
                       d="M6 4L10 8L6 12"

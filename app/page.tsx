@@ -144,10 +144,10 @@ export default function Home() {
       </div>
       
       {/* Work section */}
-      <section id="work-section" className="min-h-screen bg-muted/30 flex items-center justify-center">
+      <section id="work-section" className="min-h-screen bg-muted/30 flex items-center justify-center transition-colors duration-300">
         <div className="text-center px-4">
-          <h2 className="text-4xl font-bold text-foreground">My Work</h2>
-          <p className="text-muted-foreground mt-4">Projects and portfolio items would go here</p>
+          <h2 className="text-4xl font-bold text-foreground transition-colors duration-300">My Work</h2>
+          <p className="text-muted-foreground mt-4 transition-colors duration-300">Projects and portfolio items would go here</p>
         </div>
       </section>
     </div>

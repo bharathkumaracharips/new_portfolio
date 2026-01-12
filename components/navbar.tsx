@@ -36,7 +36,7 @@ export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
-            <button onClick={onBackToHero} className="text-left text-neutral-700 dark:text-neutral-200 hover:text-black">
+            <button onClick={onBackToHero} className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300">
               Back to Hero
             </button>
           </div>

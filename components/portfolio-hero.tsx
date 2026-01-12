@@ -34,15 +34,15 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
   onExploreClick,
 }) => {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-background px-4 py-8">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background px-4 py-8 transition-colors duration-300">
       <div className="max-w-6xl w-full mx-auto">
         <div className="flex flex-col items-center text-center space-y-4">
           {/* Profile Image */}
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-primary/30 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition duration-300"></div>
-            <Avatar className="relative h-28 w-28 border-4 border-background shadow-2xl">
+            <Avatar className="relative h-28 w-28 border-4 border-background shadow-2xl transition-colors duration-300">
               <AvatarImage src={profileImage} alt={name} className="object-cover" />
-              <AvatarFallback className="text-3xl font-bold bg-primary text-primary-foreground">
+              <AvatarFallback className="text-3xl font-bold bg-primary text-primary-foreground transition-colors duration-300">
                 {name
                   .split(' ')
                   .map((n) => n[0])
@@ -53,10 +53,10 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
 
           {/* Name */}
           <div className="space-y-1">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground transition-colors duration-300">
               {name}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground font-medium">
+            <p className="text-lg md:text-xl text-muted-foreground font-medium transition-colors duration-300">
               {role}
             </p>
           </div>
@@ -76,7 +76,7 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
 
           {/* What I Offer - Testimonials */}
           <div className="w-full max-w-5xl space-y-3">
-            <h2 className="text-base font-semibold text-foreground text-center">What I Offer</h2>
+            <h2 className="text-base font-semibold text-foreground text-center transition-colors duration-300">What I Offer</h2>
             <Testimonial />
           </div>
 
@@ -98,3 +98,4 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
 };
 
 export default PortfolioHero;
+
