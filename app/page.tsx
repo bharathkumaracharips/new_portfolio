@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import PortfolioHero from '@/components/portfolio-hero';
 import { Navbar } from '@/components/navbar';
+import CinematicThemeSwitcher from '@/components/ui/cinematic-theme-switcher';
 
 export default function Home() {
   const [isHeroLocked, setIsHeroLocked] = useState(true);
@@ -132,6 +133,11 @@ export default function Home() {
 
   return (
     <div className="w-full scroll-smooth">
+      {/* Theme Switcher - Fixed Position */}
+      <div className="fixed top-6 right-6 z-50">
+        <CinematicThemeSwitcher />
+      </div>
+
       <Navbar onBackToHero={handleBackToHero} isHeroLocked={isHeroLocked} />
       <div id="hero">
         <PortfolioHero onExploreClick={handleExploreClick} />
