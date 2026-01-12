@@ -1,0 +1,65 @@
+import { type HTMLMotionProps, motion, useInView } from "framer-motion"
+import type React from "react"
+import type { Variants } from "framer-motion"
+
+type TimelineContentProps<T extends keyof HTMLElementTagNameMap> = {
+  children?: React.ReactNode
+  animationNum: number
+  className?: string
+  timelineRef: React.RefObject<HTMLElement | null>
+  as?: T
+  customVariants?: Variants
+  once?: boolean
+} & HTMLMotionProps<T>
+
+export const TimelineContent = <T extends keyof HTMLElementTagNameMap = "div">({
+  children,
+  animationNum,
+  timelineRef,
+  className,
+  as,
+  customVariants,
+  once = false,
+  ...props
+}: TimelineContentProps<T>) => {
+  const defaultSequenceVariants = {
+    visible: (i: number) => ({
+      filter: "blur(0px)",
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.3,
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    }),
+    hidden: {
+      filter: "blur(10px)",
+      y: 20,
+      opacity: 0,
+    },
+  }
+
+  // Use custom variants if provided, otherwise use default
+  const sequenceVariants = customVariants || defaultSequenceVariants
+  const isInView = useInView(timelineRef, { 
+    once,
+    margin: "-100px",
+    amount: 0.3
+  })
+
+  const MotionComponent = motion[as || "div"] as React.ElementType
+
+  return (
+    <MotionComponent
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      custom={animationNum}
+      variants={sequenceVariants}
+      className={className}
+      {...props}
+    >
+      {children}
+    </MotionComponent>
+  )
+}

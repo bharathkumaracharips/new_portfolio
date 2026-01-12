@@ -6,6 +6,8 @@ import PortfolioHero from '@/components/portfolio-hero';
 import { Navbar } from '@/components/navbar';
 import CinematicThemeSwitcher from '@/components/ui/cinematic-theme-switcher';
 import { LetsWorkTogether } from '@/components/ui/lets-work-section';
+import { PricingSection } from '@/components/ui/pricing-section';
+import TestimonialSliderSection from '@/components/ui/testimonial-slider';
 
 export default function Home() {
   const [isHeroLocked, setIsHeroLocked] = useState(true);
@@ -36,71 +38,20 @@ export default function Home() {
         return;
       }
 
-      // If hero is locked, prevent all scrolling
+      // If hero is locked, prevent scrolling DOWN only
       if (isHeroLocked) {
-        e.preventDefault();
-        return;
-      }
-
-      // If user has left hero and tries to scroll up past the work section
-      if (hasLeftHero && !isHeroLocked) {
-        const scrollPosition = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        // Prevent scrolling back to hero (within 50px of hero section)
-        if (scrollPosition < viewportHeight + 50) {
-          // If trying to scroll up (negative deltaY for wheel event)
-          if (e instanceof WheelEvent && e.deltaY < 0) {
-            e.preventDefault();
-            isScrollingProgrammatically.current = true;
-            window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
-            setTimeout(() => {
-              isScrollingProgrammatically.current = false;
-            }, 500);
-          }
+        if (e instanceof WheelEvent && e.deltaY > 0) {
+          // Prevent scrolling down
+          e.preventDefault();
         }
+        return;
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Prevent keyboard scrolling when hero is locked
-      if (isHeroLocked && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Home'].includes(e.key)) {
+      // Prevent keyboard scrolling DOWN when hero is locked
+      if (isHeroLocked && ['ArrowDown', 'PageDown', ' '].includes(e.key)) {
         e.preventDefault();
-      }
-      
-      // Prevent scrolling back to hero with keyboard
-      if (hasLeftHero && !isHeroLocked && ['ArrowUp', 'PageUp', 'Home'].includes(e.key)) {
-        const scrollPosition = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        if (scrollPosition < viewportHeight + 100) {
-          e.preventDefault();
-          isScrollingProgrammatically.current = true;
-          window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
-          setTimeout(() => {
-            isScrollingProgrammatically.current = false;
-          }, 500);
-        }
-      }
-    };
-
-    const preventScrollToTop = () => {
-      if (isScrollingProgrammatically.current) {
-        return;
-      }
-
-      if (hasLeftHero && !isHeroLocked) {
-        const scrollPosition = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        // Keep user from scrolling above work section
-        if (scrollPosition < viewportHeight - 10) {
-          isScrollingProgrammatically.current = true;
-          window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
-          setTimeout(() => {
-            isScrollingProgrammatically.current = false;
-          }, 500);
-        }
       }
     };
 
@@ -110,19 +61,11 @@ export default function Home() {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
-      
-      if (hasLeftHero) {
-        // Add listeners to prevent scrolling back to hero
-        window.addEventListener('wheel', handleScroll, { passive: false });
-        window.addEventListener('scroll', preventScrollToTop);
-        window.addEventListener('keydown', handleKeyDown);
-      }
     }
 
     return () => {
       window.removeEventListener('wheel', handleScroll);
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('scroll', preventScrollToTop);
       document.body.style.overflow = 'auto';
     };
   }, [isHeroLocked, hasLeftHero]);
@@ -169,6 +112,12 @@ export default function Home() {
           <p className="text-muted-foreground mt-4 transition-colors duration-300">Projects and portfolio items would go here</p>
         </div>
       </section>
+
+      {/* Reviews section */}
+      <TestimonialSliderSection />
+
+      {/* Pricing section */}
+      <PricingSection />
 
       {/* Contact section */}
       <LetsWorkTogether />

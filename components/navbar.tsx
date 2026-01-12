@@ -32,7 +32,7 @@ export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
   if (!isVisible || isHeroLocked) return null;
 
   return (
-    <div className="fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 animate-in fade-in slide-in-from-top-5 duration-300">
+    <div className="fixed top-10 inset-x-0 max-w-2xl mx-auto z-[100] animate-in fade-in slide-in-from-top-5 duration-300">
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
@@ -47,6 +47,54 @@ export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
             <HoveredLink href="/services/backend">Backend Systems</HoveredLink>
             <HoveredLink href="/services/classes">Private & Public Classes</HoveredLink>
             <HoveredLink href="/services/freelance">Freelance Projects</HoveredLink>
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Resources">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/opensource">Open Source Projects</HoveredLink>
+            <HoveredLink href="/research">Research Papers</HoveredLink>
+            <HoveredLink href="/blog">Tech Blog</HoveredLink>
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Reviews">
+          <div className="flex flex-col space-y-4 text-sm">
+            <button 
+              onClick={() => {
+                const reviewsSection = document.getElementById('reviews');
+                if (reviewsSection) {
+                  reviewsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Client Reviews
+            </button>
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Pricing">
+          <div className="flex flex-col space-y-4 text-sm">
+            <button 
+              onClick={() => {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) {
+                  pricingSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              View Pricing
+            </button>
+            <button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Request Quote
+            </button>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Contact">
