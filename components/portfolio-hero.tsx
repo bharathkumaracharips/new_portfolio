@@ -13,6 +13,7 @@ interface PortfolioHeroProps {
   profileImage?: string;
   skills?: string[];
   description?: string;
+  onExploreClick?: () => void;
 }
 
 const PortfolioHero: React.FC<PortfolioHeroProps> = ({
@@ -30,16 +31,8 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
     'Go',
   ],
   description = 'I build secure, scalable blockchain solutions and robust backend systems. I offer private and public classes on CS and blockchain topics, take on freelance and contract projects, and am open to full-time blockchain roles. Let\'s create something exceptional together.',
+  onExploreClick,
 }) => {
-  const handleExploreClick = () => {
-    const nextSection = document.querySelector('#work-section, #projects, #portfolio, section:not(:first-child)');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-background px-4 py-8">
       <div className="max-w-6xl w-full mx-auto">
@@ -91,7 +84,7 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
           <div className="pt-2">
             <Button
               size="lg"
-              onClick={handleExploreClick}
+              onClick={onExploreClick}
               className="group px-6 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Explore My Work

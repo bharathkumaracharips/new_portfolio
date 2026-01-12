@@ -3,13 +3,17 @@
 import React, { useState, useEffect } from "react";
 import { Menu, MenuItem, HoveredLink } from "@/components/ui/navbar-menu";
 
-export function Navbar() {
+interface NavbarProps {
+  onBackToHero: () => void;
+  isHeroLocked: boolean;
+}
+
+export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
   const [active, setActive] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show navbar when scrolled past the hero section (viewport height)
       const scrollPosition = window.scrollY;
       const viewportHeight = window.innerHeight;
       
@@ -24,16 +28,17 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!isVisible) return null;
+  // Don't show navbar when hero is locked
+  if (!isVisible || isHeroLocked) return null;
 
   return (
     <div className="fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 animate-in fade-in slide-in-from-top-5 duration-300">
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#hero">Hero</HoveredLink>
-            <HoveredLink href="#about">About</HoveredLink>
-            <HoveredLink href="#testimonials">Testimonials</HoveredLink>
+            <button onClick={onBackToHero} className="text-left text-neutral-700 dark:text-neutral-200 hover:text-black">
+              Back to Hero
+            </button>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Services">
