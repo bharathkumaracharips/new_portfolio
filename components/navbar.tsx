@@ -43,10 +43,10 @@ export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Services">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#blockchain">Blockchain Development</HoveredLink>
-            <HoveredLink href="#backend">Backend Systems</HoveredLink>
-            <HoveredLink href="#classes">Private & Public Classes</HoveredLink>
-            <HoveredLink href="#freelance">Freelance Projects</HoveredLink>
+            <HoveredLink href="/services/blockchain">Blockchain Development</HoveredLink>
+            <HoveredLink href="/services/backend">Backend Systems</HoveredLink>
+            <HoveredLink href="/services/classes">Private & Public Classes</HoveredLink>
+            <HoveredLink href="/services/freelance">Freelance Projects</HoveredLink>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Work">

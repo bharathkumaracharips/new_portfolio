@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import PortfolioHero from '@/components/portfolio-hero';
 import { Navbar } from '@/components/navbar';
 import CinematicThemeSwitcher from '@/components/ui/cinematic-theme-switcher';
@@ -9,6 +10,24 @@ export default function Home() {
   const [isHeroLocked, setIsHeroLocked] = useState(true);
   const [hasLeftHero, setHasLeftHero] = useState(false);
   const isScrollingProgrammatically = useRef(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Check if we're returning from a service page
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash === '#work-section') {
+        // Coming from service page, unlock hero and show work section
+        setIsHeroLocked(false);
+        setHasLeftHero(true);
+        setTimeout(() => {
+          const viewportHeight = window.innerHeight;
+          window.scrollTo({ top: viewportHeight, behavior: 'auto' });
+        }, 100);
+      }
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent | Event) => {
