@@ -7,6 +7,7 @@ import { ArrowUpRight, Calendar, Mail, Phone, MessageSquare, Linkedin } from "lu
 import { AnimatePresence, motion } from "framer-motion"
 import AIChatCard from "./ai-chat"
 import ContactForm from "./contact-form"
+import CallbackForm from "./callback-form"
 
 // WhatsApp Icon Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -28,6 +29,7 @@ export function LetsWorkTogether() {
   const [showChat, setShowChat] = useState(false)
   const [showMessageOptions, setShowMessageOptions] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
+  const [showCallbackForm, setShowCallbackForm] = useState(false)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -62,7 +64,7 @@ export function LetsWorkTogether() {
   }
 
   const handleRequestCallback = () => {
-    window.open("https://cal.com/ps-bharath-kumar-achari-cc3req", "_blank")
+    setShowCallbackForm(true)
   }
 
   const handleLiveChat = () => {
@@ -180,6 +182,30 @@ export function LetsWorkTogether() {
               className="my-8"
             >
               <ContactForm onClose={() => setShowContactForm(false)} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Callback Form Modal */}
+      <AnimatePresence>
+        {showCallbackForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-y-auto"
+            onClick={() => setShowCallbackForm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              onClick={(e) => e.stopPropagation()}
+              className="my-8"
+            >
+              <CallbackForm onClose={() => setShowCallbackForm(false)} />
             </motion.div>
           </motion.div>
         )}
