@@ -1,15 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import PortfolioHero from '@/components/portfolio-hero';
 import { Navbar } from '@/components/navbar';
 
 export default function Home() {
   const [isHeroLocked, setIsHeroLocked] = useState(true);
   const [hasLeftHero, setHasLeftHero] = useState(false);
+  const isScrollingProgrammatically = useRef(false);
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent | Event) => {
+      // Allow programmatic scrolling
+      if (isScrollingProgrammatically.current) {
+        return;
+      }
+
       // If hero is locked, prevent all scrolling
       if (isHeroLocked) {
         e.preventDefault();
@@ -26,7 +32,11 @@ export default function Home() {
           // If trying to scroll up (negative deltaY for wheel event)
           if (e instanceof WheelEvent && e.deltaY < 0) {
             e.preventDefault();
-            window.scrollTo({ top: viewportHeight, behavior: 'auto' });
+            isScrollingProgrammatically.current = true;
+            window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+            setTimeout(() => {
+              isScrollingProgrammatically.current = false;
+            }, 500);
           }
         }
       }
@@ -45,19 +55,31 @@ export default function Home() {
         
         if (scrollPosition < viewportHeight + 100) {
           e.preventDefault();
-          window.scrollTo({ top: viewportHeight, behavior: 'auto' });
+          isScrollingProgrammatically.current = true;
+          window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+          setTimeout(() => {
+            isScrollingProgrammatically.current = false;
+          }, 500);
         }
       }
     };
 
     const preventScrollToTop = () => {
+      if (isScrollingProgrammatically.current) {
+        return;
+      }
+
       if (hasLeftHero && !isHeroLocked) {
         const scrollPosition = window.scrollY;
         const viewportHeight = window.innerHeight;
         
         // Keep user from scrolling above work section
-        if (scrollPosition < viewportHeight) {
-          window.scrollTo({ top: viewportHeight, behavior: 'auto' });
+        if (scrollPosition < viewportHeight - 10) {
+          isScrollingProgrammatically.current = true;
+          window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+          setTimeout(() => {
+            isScrollingProgrammatically.current = false;
+          }, 500);
         }
       }
     };
@@ -67,7 +89,6 @@ export default function Home() {
       window.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
     } else {
-      window.removeEventListener('wheel', handleScroll);
       document.body.style.overflow = 'auto';
       
       if (hasLeftHero) {
@@ -89,20 +110,28 @@ export default function Home() {
   const handleExploreClick = () => {
     setIsHeroLocked(false);
     setHasLeftHero(true);
+    isScrollingProgrammatically.current = true;
     setTimeout(() => {
       const viewportHeight = window.innerHeight;
       window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+      setTimeout(() => {
+        isScrollingProgrammatically.current = false;
+      }, 1000);
     }, 100);
   };
 
   const handleBackToHero = () => {
     setHasLeftHero(false);
-    setIsHeroLocked(true);
+    isScrollingProgrammatically.current = true;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      setIsHeroLocked(true);
+      isScrollingProgrammatically.current = false;
+    }, 1000);
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full scroll-smooth">
       <Navbar onBackToHero={handleBackToHero} isHeroLocked={isHeroLocked} />
       <div id="hero">
         <PortfolioHero onExploreClick={handleExploreClick} />
