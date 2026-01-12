@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import CinematicThemeSwitcher from "@/components/ui/cinematic-theme-switcher";
+import { classesProjects } from "@/lib/projects-data";
 
 export default function ClassesPage() {
   return (
@@ -33,47 +34,27 @@ export default function ClassesPage() {
           </div>
 
           <Carousel
-            slides={[
-              <div
-                key={"1"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
+            slides={classesProjects.map((project) => (
+              <Link
+                key={project.id}
+                href={`/projects/${project.id}`}
+                className="block h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300 group cursor-pointer"
               >
                 <div className="w-full h-full overflow-hidden relative">
                   <Image
-                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop"
-                    alt="Online Classes"
+                    src={project.mediaSrc}
+                    alt={project.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-sm text-gray-300">{project.date}</p>
+                  </div>
                 </div>
-              </div>,
-              <div
-                key={"2"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
-              >
-                <div className="w-full h-full overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop"
-                    alt="Group Training"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>,
-              <div
-                key={"3"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
-              >
-                <div className="w-full h-full overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop"
-                    alt="One-on-One Mentoring"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>,
-            ]}
+              </Link>
+            ))}
           />
         </div>
       </div>

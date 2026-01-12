@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import CinematicThemeSwitcher from "@/components/ui/cinematic-theme-switcher";
+import { blockchainProjects } from "@/lib/projects-data";
 
 export default function BlockchainPage() {
   return (
@@ -33,47 +34,25 @@ export default function BlockchainPage() {
           </div>
 
           <Carousel
-            slides={[
-              <div
-                key={"1"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
-              >
-                <div className="w-full h-full overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop"
-                    alt="Smart Contract Development"
-                    fill
-                    className="object-cover"
-                  />
+            slides={blockchainProjects.map((project) => (
+              <Link key={project.id} href={`/projects/${project.id}`}>
+                <div className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300 cursor-pointer hover:scale-[1.02] transition-transform">
+                  <div className="w-full h-full overflow-hidden relative">
+                    <Image
+                      src={project.mediaSrc}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                      <p className="text-sm text-gray-200">{project.date}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>,
-              <div
-                key={"2"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
-              >
-                <div className="w-full h-full overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&h=600&fit=crop"
-                    alt="DApp Development"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>,
-              <div
-                key={"3"}
-                className="border h-96 w-full relative overflow-hidden rounded-md bg-card text-card-foreground transition-colors duration-300"
-              >
-                <div className="w-full h-full overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=800&h=600&fit=crop"
-                    alt="Web3 Integration"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>,
-            ]}
+              </Link>
+            ))}
           />
         </div>
       </div>
