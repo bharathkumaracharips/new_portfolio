@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import CinematicThemeSwitcher from "@/components/ui/cinematic-theme-switcher";
 import { classesProjects } from "@/lib/projects-data";
+import { MessageCircle } from "lucide-react";
 
 export default function ClassesPage() {
   return (
@@ -11,6 +12,16 @@ export default function ClassesPage() {
       {/* Theme Switcher - Fixed Position */}
       <div className="fixed top-6 right-6 z-50">
         <CinematicThemeSwitcher />
+      </div>
+
+      {/* Floating Contact Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Link href="/#contact">
+          <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+            <MessageCircle className="mr-2 h-5 w-5" />
+            Contact Me
+          </Button>
+        </Link>
       </div>
 
       {/* Navbar */}

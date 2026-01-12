@@ -49,17 +49,30 @@ export function Navbar({ onBackToHero, isHeroLocked }: NavbarProps) {
             <HoveredLink href="/services/freelance">Freelance Projects</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Work">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#projects">Projects</HoveredLink>
-            <HoveredLink href="#portfolio">Portfolio</HoveredLink>
-            <HoveredLink href="#case-studies">Case Studies</HoveredLink>
-          </div>
-        </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Contact">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#contact">Get in Touch</HoveredLink>
-            <HoveredLink href="#hire">Hire Me</HoveredLink>
+            <button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Get in Touch
+            </button>
+            <button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-left text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Hire Me
+            </button>
           </div>
         </MenuItem>
       </Menu>

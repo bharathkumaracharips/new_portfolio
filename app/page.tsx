@@ -1,16 +1,16 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import PortfolioHero from '@/components/portfolio-hero';
 import { Navbar } from '@/components/navbar';
 import CinematicThemeSwitcher from '@/components/ui/cinematic-theme-switcher';
+import { LetsWorkTogether } from '@/components/ui/lets-work-section';
 
 export default function Home() {
   const [isHeroLocked, setIsHeroLocked] = useState(true);
   const [hasLeftHero, setHasLeftHero] = useState(false);
   const isScrollingProgrammatically = useRef(false);
-  const router = useRouter();
   const pathname = usePathname();
 
   // Check if we're returning from a service page
@@ -169,6 +169,9 @@ export default function Home() {
           <p className="text-muted-foreground mt-4 transition-colors duration-300">Projects and portfolio items would go here</p>
         </div>
       </section>
+
+      {/* Contact section */}
+      <LetsWorkTogether />
     </div>
   );
 }

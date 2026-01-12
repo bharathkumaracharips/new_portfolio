@@ -87,10 +87,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* CTA */}
-          <div className="pt-8 text-center">
+          <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href={`/services/${project.category}`}>
-              <Button size="lg" className="rounded-full px-8">
+              <Button size="lg" variant="secondary" className="rounded-full px-8">
                 View More Projects
+              </Button>
+            </Link>
+            <Link href="/#contact">
+              <Button size="lg" className="rounded-full px-8">
+                Let's Work Together
               </Button>
             </Link>
           </div>
